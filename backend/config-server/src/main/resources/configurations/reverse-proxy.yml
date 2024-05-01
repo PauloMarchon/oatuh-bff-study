@@ -1,0 +1,43 @@
+scheme: http
+hostname: localhost
+reverse-proxy-port: 7080
+
+angular-uri: http://${hostname}:${angular-port}${angular-prefix}
+angular-port: 4200
+angular-prefix: /angular
+
+authorization-server-uri: ${scheme}://${hostname}:${authorization-server-port}${authorization-server-prefix}
+authorization-server-port: 8080
+authorization-server-prefix: /auth
+
+bff-uri: ${scheme}://${hostname}:${bff-port}
+bff-port: 7081
+bff-prefix: /bff
+
+server:
+  port: ${reverse-proxy-port}
+
+spring:
+  application:
+    name: reverse-proxy
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:
+        - id: angular
+          uri: ${angular-uri}
+          predicates:
+            - Path=${angular-prefix}/**
+
+        - id: authorization-server
+          uri: ${authorization-server-uri}
+          predicates:
+            - Path=${authorization-server-prefix}/**
+
+        - id: bff
+          uri: ${bff-uri}
+          predicates:
+            - Path=${bff-prefix}/**
+          filters:
+            - StripPrefix=1
