@@ -1,5 +1,7 @@
 package com.paulomarchon.banking.resourceserver.controller;
 
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
@@ -51,5 +53,10 @@ public class MeController {
      */
     public static record UserInfoDto(String username, String email, List<String> roles, Long exp) {
         public static final UserInfoDto ANONYMOUS = new UserInfoDto("", "", List.of(), Long.MAX_VALUE);
+    }
+
+    @Bean
+    OAuth2ClientProperties oAuth2ClientProperties() {
+        return new OAuth2ClientProperties();
     }
 }

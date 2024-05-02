@@ -14,7 +14,7 @@ server:
 
 spring:
   application:
-    name: bff-gateway
+    name: resource-server
 
 com:
   c4-soft:

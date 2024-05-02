@@ -12,7 +12,7 @@ username-claim-json-path: $.preferred_username
 authorities-json-path: $.realm_access.roles
 bff-port: 7081
 bff-prefix: /bff
-resource-server-port:
+resource-server-port: 7084
 audience:
 
 server:
