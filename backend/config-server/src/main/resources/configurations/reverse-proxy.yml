@@ -41,3 +41,10 @@ spring:
             - Path=${bff-prefix}/**
           filters:
             - StripPrefix=1
+
+eureka:
+  instance:
+    hostname: ${hostname}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
